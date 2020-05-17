@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	 <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	
+	
+	
+	<title>Book Directory</title>
+</head>
+
+<body>
+<div class="container">
+
+	<h3>Book Directory</h3>
+	<hr>
+	<form th:action="@{/web/search}" class="form-inline">
+		<a th:href="@{/web/showFormForAdd}"
+			class="btn btn-primary btn-sm mr-5 mb-3">
+			add Book
+		</a>
+
+		<input class="form-control  ml-5 mr-sm-2 mb-3" type="search" name="bookName" placeholder="Search by name" />
+
+		<button class="btn btn-success mb-3" type="submit">Search</button>
+    </form>	
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>ID</th>
+				<th>BookName</th>
+				<th>Category</th>
+				<th>AutherName</th>
+				<th>Price</th>
+				<th>Action</th>
+
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="MyBook : ${books}">
+				<td th:text="${MyBook.bookId}"></td>
+				<td th:text="${MyBook.bookName}"></td>
+				<td th:text="${MyBook.category}"></td>
+				<td th:text="${MyBook.authorName}"></td>
+				<td th:text="${MyBook.price}"></td>
+				<td>
+				<a th:href="@{/web/showFormForUpdate(bookId=${MyBook.bookId})}"
+				class="btn btn-info btn-sm">
+				Update
+				</a>
+				<a th:href="@{/web/delete(bookId=${MyBook.bookId})}"
+				class="btn btn-danger btn-sm" onclick="if (!(confirm('kitabı silmek üzersindesiniz emin misiniz?'))) return false">
+				Delete
+				</a>
+				
+				</td>
+				
+			</tr>
+		</tbody>		
+	</table>
+	 <form action="#" th:action="@{/logout}" 
+			   method="POST">
+	
+		<input type="submit" value="Logout" class="btn btn-outline-primary btn-m mr-5 mb-3 mt-2" />
+	
+	</form>
+	
+	</div>
+</body>
+</html>
